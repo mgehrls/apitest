@@ -24,3 +24,21 @@ a {
     background: black;
   }
 }
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
+:root{
+  --handwriting-font: 'Sriracha', cursive;
+  --business-font: 'Poiret One', cursive;
+  --main-dark-color: #252525;
+  --main-light-color: #f3f3f3;
+  --dark-ts: 2px 2px 10px var(--main-dark-color), 
+                      -2px -2px 10px var(--main-dark-color), 
+                      -2px 2px 10px var(--main-dark-color), 
+                      2px -2px 10px var(--main-dark-color);
+  --light-ts: 2px 2px 10px var( --main-light-color), 
+                      -2px -2px 10px var( --main-light-color), 
+                      -2px 2px 10px var( --main-light-color), 
+                      2px -2px 10px var( --main-light-color);
+}

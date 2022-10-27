@@ -1,57 +1,36 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import { WeatherData } from '../utils/types'
+import Audio from '../components/Audio'
 
-export default function Home() {
+const backgroundOptions = ["./hexspinner.gif", "./rain2.gif", "./cityskyline.gif"]
+
+function getRandomBackground(){
+    return backgroundOptions[Math.floor(Math.random() * backgroundOptions.length)]
+}
+const background = getRandomBackground()
+
+
+export default async function Home() {
+  const time = new Date()
+  const fetchWeatherData = async () => {
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=42.96&lon=-85.66&appid=e02944c0d1d98fbccd5ecb3d5676e167&units=imperial`)
+    const data = await res.json()
+    return data
+  }
+  const weatherData: WeatherData = await fetchWeatherData()
+
+
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js 13!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://beta.nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js 13</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Explore the Next.js 13 playground.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates/next.js/app-directory?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>Deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
+    <div style={{position:"relative", display:"grid", placeContent:"center", height:"100vh", width:"100vw", backgroundImage:`url(${background})`, backgroundSize:'cover'}}>
+      <h1 style={{fontSize:"80px", textAlign:"center", margin:"0", textShadow:"var(--dark-ts)", cursor:'default'}}>{time.toLocaleTimeString("en-us", {timeStyle:'short'})}</h1>
+      <h3 style={{textAlign:"center", textShadow:"var(--dark-ts)", cursor:'default'}}>{time.toLocaleDateString()}</h3>
+      <div style={{position:"absolute", bottom:"1rem", right:"1rem", backgroundColor:"rgba(0,0,0,.7)", padding:"1rem"}}>
+        <div style={{display:"flex"}}>
+          <img style={{margin:"0", padding:"0"}} className="weather-img" src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="" />
+          <h1 style={{margin:"0", padding:"0"}} >{weatherData.main.temp.toFixed(0)}°F</h1>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+        <h3 style={{margin:"0", padding:"0"}}>{weatherData.name}</h3>
+      </div>
+      <Audio />
     </div>
   )
 }
