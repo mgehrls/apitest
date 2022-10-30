@@ -96,7 +96,7 @@ const Todo = ({updateText, remove, id, text, addTodo}: TodoPropTypes) => {
                 id={id} type="text" 
                 value={text} />
             <div className="remove-todo-icon">
-                <i onClick={()=> remove(id)} className={classes} />
+                <button onClick={()=> remove(id)} className={classes}>remove</button>
             </div>
         </div>
     )
