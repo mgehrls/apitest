@@ -14,8 +14,8 @@ const Time = () => {
 
     return(
         <div>
-            <h1 style={{fontSize:"80px", textAlign:"center", margin:"0", textShadow:"var(--dark-ts)", cursor:'default'}}>{currentTime.toLocaleTimeString("en-us", {timeStyle:'short'})}</h1>
-            <h3 style={{textAlign:"center", textShadow:"var(--dark-ts)", cursor:'default'}}>{currentTime.toLocaleDateString()}</h3>
+            <h1 style={{fontSize:"80px", textAlign:"center", margin:"0", padding:"0", textShadow:"var(--dark-ts)", cursor:'default'}}>{currentTime.toLocaleTimeString("en-us", {timeStyle:'short'})}</h1>
+            <h3 style={{textAlign:"center", textShadow:"var(--dark-ts)", cursor:'default', margin:"0", padding:"0"}}>{currentTime.toLocaleDateString()}</h3>
         </div>
     )
 }
