@@ -10,8 +10,16 @@ type Todo = {
 }
 
 const Todos = () => {
-
+    const [showTodos, setShowTodos] = useState(false)
     const [todos, setTodos] = useState([] as Todo[])
+
+    if(!showTodos){
+        return(
+            <div style={{position:"absolute", top:"0", left:"0"}} onClick={()=>setShowTodos(true)}>Todos</div>
+
+        )
+
+    }
 
     function addTodo(){
         let newTodo = {text:"", done:false, id:nanoid()}
@@ -50,7 +58,10 @@ const Todos = () => {
     })
 
     return(
-        <div className='todos-container'>
+        <div className='todos-container' style={{position:"absolute", top:"0", left:"0"}}>
+            <div onClick={()=>setShowTodos(false)}>
+                Hide
+            </div>
             <div className='todos-controls'>
                 <div className="todos-add-btn" onClick={()=>addTodo()}>
                     Add Item
